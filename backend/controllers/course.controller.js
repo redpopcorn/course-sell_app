@@ -121,3 +121,9 @@ export const courseDetail = async(req,res) =>{
     console.log("Error in couse details",error);
   }
 }
+
+
+
+export const buyCourses = async(req,res)=>{
+  
+}

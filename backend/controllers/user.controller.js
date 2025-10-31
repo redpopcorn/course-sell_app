@@ -1,5 +1,6 @@
 import{User} from "../models/user.model.js";
 import bcrypt from "bcrypt"
+import jwt from"jsonwebtoken";
 import { z } from "zod";
 
 export const signup = async(req,res)=>{
@@ -40,8 +41,29 @@ const isPasswordCorrect = await bcrypt.compare(password,user.password);
 if(!user ||!isPasswordCorrect){
     return res.status(403).json({errors:"Invalid credentials"});
 }
+//jwt code   
+const token = jwt.sign({
+    id: user_id,
+    
+
+
+},config.JWT_USER_PASSWORD);
+//cookies
+res.cookie("jwt",token);
+
+res.status(201).json({message: "Login Succesfully",user,token});
 }catch (error){
     res.status(500).json({errors: "Error in login"});
 console.log("Error in login",error);
 }
 };
+
+export const logout =(req,res)=>{
+   try{
+    res.clearCookie("jwt");
+    res.status(200).json({message: "Logged out succesfully"});
+} catch(error){
+    res.status(500).json({ errors: "Error in logout"});
+    console.log("Error in logout",error);
+}
+}
