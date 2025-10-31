@@ -42,6 +42,7 @@ if(!user ||!isPasswordCorrect){
     return res.status(403).json({errors:"Invalid credentials"});
 }
 //jwt code   
+// generating token
 const token = jwt.sign({
     id: user_id,
     

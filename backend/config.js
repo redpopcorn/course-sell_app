@@ -1,7 +1,7 @@
 
 import dotenv from "dotenv"
-const JWT_user_password = process.env.JWT_user_password
+const JWT_USER_PASSWORD = process.env.JWT_USER_PASSWORD
 export default{
-    JWT_user_password,
+    JWT_USER_PASSWORD,
 
-}
+};
