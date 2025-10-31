@@ -15,3 +15,4 @@
 console.log("Invalid token or expired token:"+error)
 
  }}
+export default usermiddleware;

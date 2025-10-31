@@ -1,6 +1,6 @@
 
 import express from "express";
-import {createCourse, updateCourse,deleteCourse,getCourses,courseDetail,buyCourses} from "../controllers/course.controller.js"
+import {createCourse, updateCourse,deleteCourse,getCourses,courseDetail,buyCourses,usermiddleware} from "../controllers/course.controller.js"
 import { Course } from "../models/course.model.js";
 const router = express.Router();
 
@@ -10,5 +10,5 @@ router.delete("/delete/:courseId",deleteCourse);
 router.get("/courses",getCourses);
 router.get("/courseid",courseDetail);
 
-router.post("/buy/:courseId",buyCourses);
+router.post("/buy/:courseId",usermiddleware,buyCourses);
 export default router;
