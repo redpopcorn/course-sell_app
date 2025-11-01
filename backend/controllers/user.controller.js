@@ -48,8 +48,14 @@ const token = jwt.sign({
     
 
 
-},config.JWT_USER_PASSWORD);
+},config.JWT_USER_PASSWORD,{expiresIn: "1d" });
 //cookies
+const cookieOptions={
+    expires: new Date(Date.now()+ 24*60*60*1000),   
+    httpOnly: true,
+    secure: process.env.NODE_ENV === "production",
+    sameSite: "strict", 
+}
 res.cookie("jwt",token);
 
 res.status(201).json({message: "Login Succesfully",user,token});
