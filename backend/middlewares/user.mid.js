@@ -9,7 +9,7 @@
  try{
     const decoded = jwt.verify(token,config.JWT_USER_PASSWORD);
     req.userId = decoded.id;
-    next();
+    next();//to trasfer  control to next function
  } catch(error){
     return res.status(401).json({errors:"Invalid token"});
 console.log("Invalid token or expired token:"+error)
