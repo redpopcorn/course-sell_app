@@ -51,10 +51,16 @@ if(!cloud_response||cloud_response.error){
 
 
 export const updateCourse = async(req,res) =>{
+  const adminId = req.adminId;
   const{courseId} = req.params;
   const{title, description, price, image } = req.body;
 
   try{
+
+    const courseSearch = await Course.findById(courseId);
+    if(!courseSearch){
+      return res.status(404).json({error:"Course not found"});
+    }
     const course = await Course.updateOne({
       _id:courseId
     },{
@@ -67,7 +73,7 @@ export const updateCourse = async(req,res) =>{
       },
     },
   );
-    res.status(201).json({message:"Course update successfully"});
+    res.status(201).json({message:"Course update successfully",course});
 
   } catch(error){
     res.status(500).json({ error: "error in updating course"});
@@ -77,11 +83,13 @@ export const updateCourse = async(req,res) =>{
 };
 
 export const deleteCourse = async(req,res)=>{
+  const adminId = req.adminId;
   const {courseId} = req.params;
   try{
     const course = await Course.findOneAndDelete({
       _id:courseId,
-    })
+      creatorId:adminId,
+    });
     if(!course){
       return res.status(404).json({error:"Course not found"})
     }

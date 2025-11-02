@@ -23,6 +23,10 @@ url:{
     required: true,
 },},
 
-
+creatorId:{
+    type: mongoose.Types.ObjectId,
+    ref: "User",
+    required: true,
+},
 });
 export const Course = mongoose.model("Course", courseSchema);
