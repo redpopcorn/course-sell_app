@@ -28,6 +28,11 @@ app.use(
 );
 app.use(cookieParser());  //middleware to parse cookies
 
+app.use(cors({
+  origin: "http://localhost:3000",
+  credentials: true,
+}));
+
 const port = process.env.PORT || 3000;
 const DB_URI = process.env.MONGO_URI;
 // cloudinary config code
