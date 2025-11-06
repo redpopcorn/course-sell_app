@@ -1,19 +1,24 @@
 
 import React from 'react'
+import Slider from "react-slick";
 import { FaFacebook } from "react-icons/fa";
 import axios from "axios";
 const Home = () => {
+  const[courses,setCourses]=useState([])
   useEffect(()=>{const fetchCourses= async()=>{
     try{
-     const response = axios.get("http://localhost:4002/apiv1/course/courses");
+     const response = await axios.get("http://localhost:4002/apiv1/course/courses",{
+      withCredentials:true,
+     });
+     console.log(response.data);
+     setCourses(response.data);
     }catch(error){
       console.log("error in fetchCourses",error);
 
     }
-  }},[])
-function Home(){
+  };
+fetchCourses();},[]);
 
-}
 
   return (<div className ="bg-gradient-to-right from-black to-blue-950 h-screen text-white" >
     <div>

@@ -7,6 +7,7 @@ import userRoute from "./routes/user.route.js";
 import adminRoute from "./routes/admin.route.js";
 import fileUpload from "express-fileupload";
 import cookieParser from "cookie-parser";
+import cors from "cors";
 const app = express();
 
 import path from "path";
@@ -29,8 +30,10 @@ app.use(
 app.use(cookieParser());  //middleware to parse cookies
 
 app.use(cors({
-  origin: "http://localhost:3000",
+  origin: process.env.FRONTEND_URL  ,
   credentials: true,
+  methods:["GET", "POST","PUT", "DELETE"],
+  optionsSuccessStatus:200,
 }));
 
 const port = process.env.PORT || 3000;
