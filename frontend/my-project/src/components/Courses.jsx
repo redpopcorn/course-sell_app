@@ -9,7 +9,8 @@ import { IoMdSettings } from "react-icons/io";
 import { IoLogIn, IoLogOut } from "react-icons/io5";
 import { FiSearch } from "react-icons/fi";
 import { HiMenu, HiX } from "react-icons/hi"; // Import menu and close icons
-import logo from "../../public/logo.webp";
+<img src="/logo.webp" alt="logo" />
+
 import toast from "react-hot-toast";
 import { Link, useNavigate } from "react-router-dom";
 import { BACKEND_URL } from "../utils/utils";
