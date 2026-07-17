@@ -1,5 +1,5 @@
 import React, { useEffect, useState } from "react";
-import logo from "../../public/logo.webp";
+import logo from "../assets/logo.webp";
 import { Link } from "react-router-dom";
 import { FaFacebook } from "react-icons/fa";
 import { FaTwitter } from "react-icons/fa";
@@ -57,7 +57,7 @@ function Home() {
 
   var settings = {
     dots: true,
-    infinite: false,
+    infinite: true,
     speed: 500,
     slidesToShow: 4,
     slidesToScroll: 1,

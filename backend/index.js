@@ -8,6 +8,7 @@ import adminRoute from "./routes/admin.route.js";
 import fileUpload from "express-fileupload";
 import cookieParser from "cookie-parser";
 import cors from "cors";
+import os from "os";
 const app = express();
 
 import path from "path";
@@ -25,7 +26,7 @@ app.use(express.json());
 app.use(
   fileUpload({
     useTempFiles: true,
-    tempFileDir: "/tmp/",
+    tempFileDir: os.tmpdir(),
   })
 );
 app.use(cookieParser());  //middleware to parse cookies
@@ -58,7 +59,7 @@ try {
 
 app.use("/api/v1/course", courseRoute);
 app.use("/api/v1/user",userRoute);
-app.use("api/v1/admin",adminRoute);
+app.use("/api/v1/admin",adminRoute);
 
 
 app.listen(port, () => {

@@ -1,6 +1,6 @@
 
 import React, { useState } from "react";
-import logo from "../../public/logo.webp";
+import logo from "../assets/logo.webp";
 import { Link, useNavigate } from "react-router-dom";
 import axios from "axios";
 import toast from "react-hot-toast";

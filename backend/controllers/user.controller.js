@@ -57,7 +57,7 @@ export const login = async (req, res) => {
     // generating token
     const token = jwt.sign(
       {
-        id: user_id,
+        id: user._id,
       },
       config.JWT_USER_PASSWORD,
       { expiresIn: "1d" }
@@ -92,7 +92,7 @@ export const purchases = async(req, res) => {
     const user_id = req.userId;
     try{
       
-        const purchased = await Purchase.find({userId})
+        const purchased = await Purchase.find({ userId: user_id });
 
         let purchasedCourseId=[];//to store how many course user has bought
         for(let i =0;i<purchased.length;i++){ 

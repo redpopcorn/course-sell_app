@@ -39,8 +39,8 @@ export const signup = async (req, res) => {
       email,
       password: hashedPassword,
     });
-    await newUser.save();
-    res.status(201).json({ message: "Signup succeedded", newUser });
+    await newAdmin.save();
+    res.status(201).json({ message: "Signup succeedded", newAdmin });
   } catch (error) {
     res.status(500).json({ errors: "Error in signup" });
     console.log("Error in signup", error);
@@ -50,9 +50,12 @@ export const signup = async (req, res) => {
 export const login = async (req, res) => {
   const { email, password } = req.body;
   try {
-    const admin = await User.findOne({ email: email });
+    const admin = await Admin.findOne({ email: email });
+    if (!admin) {
+      return res.status(403).json({ errors: "Invalid credentials" });
+    }
     const isPasswordCorrect = await bcrypt.compare(password, admin.password);
-    if (!admin || !isPasswordCorrect) {
+    if (!isPasswordCorrect) {
       return res.status(403).json({ errors: "Invalid credentials" });
     }
     //jwt code

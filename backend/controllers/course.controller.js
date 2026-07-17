@@ -2,31 +2,31 @@ import { Course } from "../models/course.model.js";
 import { Purchase } from "../models/purchase.model.js"; 
 import{v2 as cloudinary} from "cloudinary";
 export const createCourse = async (req, res) => {
-  const { title, description, price, image } = req.body;
+  const { title, description, price } = req.body;
 
   try {
     if (!title || !description || !price ) {
       return res.status(400).json({ errors: "All fields are required" });
     }
+    if(!req.files|| Object.keys(req.files).length === 0){
+        return res.status(400).json({ errors: "All fields are required"});
+    }
     const {image} =req.files
-if(!req.files|| Object.keys(req.files).length === 0){
-    return res.status(400).json({ errors: "All fields are required"});
-}
 
-const allowedFormat =["image/png", "image/jpeg"]
-if(!allowedFormat.includes(image.mimetype)){
-    return res.status(400).json({
-        errrors:"Invalid file format only png and jpeg"
-    })//1️⃣ const allowedFormat = ["image/png", "image/jpeg"];This creates an array of allowed file types (called MIME types).Each file you upload (like an image) has a property called .mimetype that tells what type of file it is.
-}
-//cloudinary code
+    const allowedFormat =["image/png", "image/jpeg"]
+    if(!allowedFormat.includes(image.mimetype)){
+        return res.status(400).json({
+            errrors:"Invalid file format only png and jpeg"
+        })//1️⃣ const allowedFormat = ["image/png", "image/jpeg"];This creates an array of allowed file types (called MIME types).Each file you upload (like an image) has a property called .mimetype that tells what type of file it is.
+    }
+    //cloudinary code
 
-const cloud_response = await cloudinary.uploader.upload(image.tempFilePath)
-if(!cloud_response||cloud_response.error){
-    return res.status(400).json({
-        errors:"Error uploading file to cloudinary"
-    });
-}
+    const cloud_response = await cloudinary.uploader.upload(image.tempFilePath)
+    if(!cloud_response||cloud_response.error){
+        return res.status(400).json({
+            errors:"Error uploading file to cloudinary"
+        });
+    }
     const courseData = {
       title,
       description,
@@ -34,7 +34,8 @@ if(!cloud_response||cloud_response.error){
       image:{
         public_id: cloud_response.public_id,
         url: cloud_response.url,
-      }
+      },
+      creatorId: req.adminId,
     };
     const course = await Course.create(courseData);
 
