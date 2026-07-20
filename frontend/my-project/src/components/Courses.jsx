@@ -45,6 +45,7 @@ function Courses() {
         setLoading(false);
       } catch (error) {
         console.log("error in fetchCourses ", error);
+        setLoading(false);
       }
     };
     fetchCourses();
